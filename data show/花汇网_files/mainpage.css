@@ -1,0 +1,66 @@
+body {
+background-color:#FFFFFF;
+}
+h1{
+color:#006633;
+}
+a:link{color:#003300;font-weight:bold;text-decoration:none;}
+#menu_title a:link{color:#FFFFFF;font-weight:bold;text-decoration:none;}
+#menu_title a:visited{color:#FFFFFF;font-weight:bold;text-decoration:none;}
+
+a:visited{color:#003300;font-weight:bold;}
+#index_pagehead{
+
+}
+#sidebar{
+ float:left;
+ height :800px;
+ width : 240px;
+}
+.menu1 {
+
+margin:0px auto;
+padding:10px 20px;
+ height :600px;
+ color:#000000;
+background-color:#339900;
+}
+#menu_title {
+margin:0px auto;
+padding:20px 20px;
+font-size: large;text-align:justify; line-height : 150%;
+color:#FFFFFF;
+background-color:#003300;
+}
+#login_title {
+ height :100px;
+ width : 200px;
+margin:0px auto;
+padding:5px auto;
+font-size: large;text-align:justify; line-height : 150%;
+
+}
+#menu_title_inner {
+ height :100px;
+margin:0px auto;
+padding:5px auto;
+font-size: large;text-align:justify;line-height : 150%;
+
+}
+
+#public_board{
+padding:0px 30px;
+color: #006600;
+font-weight: bold;
+}
+#img_map {
+ padding:0px 30px;
+ font-weight: bold;
+
+}
+
+#site_map {
+ padding:0px 30px;
+ font-weight: bold;
+
+}
