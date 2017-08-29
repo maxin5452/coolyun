@@ -21,6 +21,7 @@ http://www.crifan.com/crawl_website_html_and_extract_info_using_python/
 import os;
 import shutil
 import urllib2;
+import urlparse;#创建绝对路径所需要的模块
 import re;
 from BeautifulSoup import BeautifulSoup;
 
@@ -124,23 +125,26 @@ def get(filename,rank,Userurl):#filename:例如，alltype_2_20170805000011_1,
                  except Exception,e:
                      print 'Error',str(e);
                  finally:
-                     #判断是否是外链
-                     #判断是否是不加http协议的本站链接
-                     if link['href'].startswith('http') \
-                     and type(link.string)!= type(None):
-                         try:
-                             if MainCore(Userurl) in link['href']:#如果是它的子站，则收录；否则放弃。
-                                 url_file.write(link['href']+"\t"+Userurl+"\t"+rank+'\n')
-                             else:
-                                 print link['href']+" not in " + Userurl + "?"
-                             
-                             
-                         except Exception,e:
-                             print 'Error',str(e)
-                             errlog_file.write(filename+'\t'+str(e)+'\n')
-                             i=i+1                             
-                         else:
-                             i=i+1
+
+                     #处理相对链接
+                     if not link['href'].startswith('http'):
+                         new_link=urlparse.urljoin("http://"+Userurl,link['href'])
+                         url_file.write(new_link+"\t"+Userurl+"\t"+rank+'\n')
+                     else:#处理绝对链接
+                         if type(link.string)!= type(None):
+                             try:
+                                 if MainCore(Userurl) in link['href']:#如果是它的子站，则收录；否则放弃。
+                                     url_file.write(link['href']+"\t"+Userurl+"\t"+rank+'\n')
+                                 else:
+                                     print link['href']+" not in " + Userurl + "?"
+                                 
+                                 
+                             except Exception,e:
+                                 print 'Error',str(e)
+                                 errlog_file.write(filename+'\t'+str(e)+'\n')
+                             finally:
+                                 i=i+1                             
+                         
          except Exception,e:
                     site_file.close()
                     url_file.close()

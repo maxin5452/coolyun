@@ -45,6 +45,7 @@ def saveHTM(region,zone,save_path,userUrl,rank,depth=1,num_retries=1,user_agent=
     #save_path:爬取网页的保存路径，saveUrl:爬取网页的网址，num_retries:如果失败重试爬取的次数，user_agent:代理名称
     #depth:爬取的深度，最高是3，从上往下依次递减
     today_save_path=today_dir(save_path)#在site目录下新建当日目录
+    
     print 'Downloading:',userUrl
     headers ={'User-agent': user_agent}
     request = urllib2.Request("http://"+userUrl,headers=headers)
@@ -81,8 +82,10 @@ def saveHTM(region,zone,save_path,userUrl,rank,depth=1,num_retries=1,user_agent=
                         print title
                         DescLog.write("title\tNone\n")
                     else:
-                        print title.string
-                        DescLog.write("title\t"+title.string+"\n")
+                        title_string=title.string
+                        title_string=title_string.strip()
+                        print title_string
+                        DescLog.write("title\t"+title_string+"\n")
                     
                     #获取网站关键字及描述
                     keywords=soup.find('meta',attrs={"name":"keywords"})
@@ -93,7 +96,9 @@ def saveHTM(region,zone,save_path,userUrl,rank,depth=1,num_retries=1,user_agent=
                         DescLog.write("keywords\tNone\n")
                     else:
                         print keywords.get('content')
-                        DescLog.write("keywords\t"+keywords.get('content')+"\n")
+                        keywords_content=keywords.get('content')
+                        keywords_content=keywords_content.strip( )
+                        DescLog.write("keywords\t"+keywords_content+"\n")
                     description=soup.find('meta',attrs={"name":"description"})
                     if description == None: 
                         description=soup.find('meta',attrs={"name":"Description"})
@@ -102,7 +107,9 @@ def saveHTM(region,zone,save_path,userUrl,rank,depth=1,num_retries=1,user_agent=
                         DescLog.write("description\tNone\n")
                     else:
                         print description.get('content')
-                        DescLog.write("description\t"+description.get('content')+"\n")
+                        desc_content=description.get('content')
+                        desc_content=desc_content.strip()
+                        DescLog.write("description\t"+desc_content+"\n")
                     #Keywords
                 except Exception,e:
                     print 'Error',str(e)
